@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buvanesh Palanisamy - Backend Developer</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+
+    <style>
+    :root {
+        --accent-color: #64ffda; /* Bright Teal/Mint */
+        /* --- NEW: Gradient Background --- */
+        --background-gradient-start: #0F0C29;
+        --background-gradient-mid: #302B63;
+        --background-gradient-end: #24243E;
+        /* --- Updated for better contrast --- */
+        --background-light: #1c1a3e; /* Slightly lighter than the darkest part of gradient */
+        --text-light: #ccd6f6; /* Light Slate for headings */
+        --text-dark: #a8b2d1; /* Lighter slate for better readability */
+        --shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family: 'Lato', sans-serif;
+        margin: 0;
+        /* --- UPDATED: Apply the gradient background --- */
+        background: linear-gradient(to right, var(--background-gradient-start), var(--background-gradient-mid), var(--background-gradient-end));
+        color: var(--text-dark);
+        line-height: 1.7;
+    }
+
+    .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    /* --- Animations --- */
+    .fade-in {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .fade-in.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .section-title {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .section-title.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* --- Navigation --- */
+    nav {
+        /* --- UPDATED: Use a solid, slightly transparent color that fits the gradient --- */
+        background: rgba(22, 33, 62, 0.85); /* Midnight Blue with transparency */
+        backdrop-filter: blur(10px);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 10px 30px -10px rgba(2, 12, 27, 0.7);
+        padding: 10px 0;
+    }
+
+    nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    nav ul li a {
+        display: inline-block;
+        padding: 8px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        color: var(--text-light);
+        font-weight: 500;
+        border: 1px solid transparent;
+        transition: all 0.3s ease;
+    }
+
+    nav ul li a:hover {
+        color: var(--accent-color);
+        border-color: var(--accent-color);
+        background-color: rgba(100, 255, 218, 0.1);
+    }
+
+    h1, h2, h3, h4, .resume-button, nav ul li a {
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    /* --- Header / Hero Section --- */
+    header {
+        min-height: 90vh;
+        display: flex;
+        align-items: center;
+        padding: 50px 0;
+    }
+
+    .header-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 40px;
+        width: 100%;
+    }
+
+    .header-text {
+        flex: 1;
+    }
+
+    .header-text h1 {
+        margin: 0;
+        font-size: clamp(40px, 5vw, 60px);
+        font-weight: 700;
+        color: var(--text-light);
+        line-height: 1.2;
+    }
+
+    .header-text p {
+        font-size: 1.15em;
+        margin: 20px 0 30px;
+        max-width: 500px;
+    }
+
+    .header-image-container {
+        flex-shrink: 0;
+        position: relative;
+    }
+
+    .header-image {
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 5px solid var(--accent-color);
+        box-shadow: 0 0 30px rgba(100, 255, 218, 0.2);
+    }
+
+    .resume-button {
+        display: inline-block;
+        padding: 12px 25px;
+        border: 1px solid var(--accent-color);
+        color: var(--accent-color);
+        text-decoration: none;
+        font-weight: 600;
+        border-radius: 5px;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    }
+
+    .resume-button:hover {
+        background-color: rgba(100, 255, 218, 0.1);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(100, 255, 218, 0.15);
+    }
+
+    /* --- Social Links --- */
+    .social-links a {
+        text-decoration: none;
+        color: var(--text-dark);
+        transition: color 0.3s, transform 0.3s;
+        display: inline-block;
+    }
+
+    .social-links a:hover {
+        color: var(--accent-color);
+        transform: translateY(-3px);
+    }
+
+    .header-socials {
+        margin-bottom: 35px;
+    }
+
+    .header-socials a {
+        margin: 0 12px;
+        font-size: 1.7em;
+    }
+
+    footer .social-links a {
+        margin: 0 15px;
+        font-size: 1.8em;
+    }
+
+    /* --- Section Styling --- */
+    section {
+        padding: 80px 20px;
+    }
+
+    h2 {
+        text-align: center;
+        font-size: 2.5em;
+        color: var(--text-light);
+        margin-bottom: 50px;
+        font-weight: 700;
+    }
+
+    /* --- Reusable Grid for Cards (NEW) --- */
+    .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+    }
+
+    /* Card for Education, Awards, Experience */
+    .info-card {
+        background: var(--background-light);
+        padding: 25px;
+        border-radius: 8px;
+        box-shadow: var(--shadow);
+        border-left: 4px solid var(--accent-color);
+        transition: transform 0.3s ease;
+    }
+
+    .info-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .info-card h3 {
+        margin: 0 0 5px 0;
+        color: var(--text-light);
+        font-weight: 600;
+        font-size: 1.3em;
+    }
+
+    .info-card .date,
+    .info-card .year {
+        font-family: 'Lato', sans-serif;
+        font-weight: bold;
+        color: var(--accent-color);
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    /* Card for Projects (NEW) */
+    .project-card {
+        background: var(--background-light);
+        padding: 25px;
+        border-radius: 8px;
+        box-shadow: var(--shadow);
+        transition: transform 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .project-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .project-card-content {
+        flex-grow: 1; /* Pushes links to bottom */
+    }
+
+    .project-card h3 {
+        margin: 0 0 10px 0;
+        color: var(--text-light);
+        font-size: 1.4em;
+    }
+
+    .tech-stack {
+        margin-top: 15px;
+    }
+
+    .tech-stack span {
+        /* UPDATED: Darker background for tech stack pills */
+        background-color: #0F0C29;
+        color: var(--accent-color);
+        padding: 5px 12px;
+        margin: 5px 5px 5px 0;
+        border-radius: 20px;
+        display: inline-block;
+        font-size: 0.85em;
+        font-weight: 600;
+    }
+
+    .project-links {
+        margin-top: 20px;
+    }
+
+    .project-links a {
+        display: inline-block;
+        text-decoration: none;
+        padding: 8px 15px;
+        border-radius: 5px;
+        font-weight: 500;
+        margin-right: 10px;
+        transition: all 0.3s ease;
+    }
+
+    .project-links a.live-link {
+    /* UPDATED: Matched style with Code Link */
+    color: var(--accent-color); /* Use accent color for text */
+    border: 1px solid var(--accent-color); /* Use accent color for border */
+    font-weight: 600;
+}
+
+    .project-links a.code-link {
+        color: var(--text-light);
+        border: 1px solid var(--text-dark);
+    }
+
+    .project-links a:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    /* --- Skills Section --- */
+    .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+    }
+
+    .skill-card {
+        background: var(--background-light);
+        padding: 25px;
+        border-radius: 8px;
+        text-align: center;
+        box-shadow: var(--shadow);
+        transition: transform 0.3s ease;
+    }
+
+    .skill-card:hover {
+        transform: translateY(-8px);
+    }
+
+    .skill-card i {
+        font-size: 2.5em;
+        color: var(--accent-color);
+    }
+
+    .skill-card h4 {
+        margin: 15px 0 5px;
+        color: var(--text-light);
+        font-weight: 600;
+    }
+
+    /* --- Footer --- */
+    footer {
+        text-align: center;
+        padding: 40px 20px;
+    }
+
+    /* --- Responsive Design --- */
+    @media screen and (max-width: 900px) {
+        .header-content {
+            flex-direction: column-reverse;
+            text-align: center;
+        }
+
+        .header-text p {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        .header-image {
+            width: 220px;
+            height: 220px;
+        }
+
+        h2 {
+            font-size: 2.2em;
+        }
+    }
+</style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#awards">Awards</a></li>
+        </ul>
+    </nav>
+    
+    <!-- Header / Hero Section -->
+    <header id="about">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-text fade-in">
+                    <h1>Buvanesh Palanisamy</h1>
+                    <p>
+                        I'm a dedicated and results-driven Backend Developer with a strong passion for building secure, scalable, and efficient systems. I specialize in developing robust backend architectures, APIs, and cloud-based services using technologies like Spring Boot, Flask, and Firebase. With a focus on clean code and performance, I enjoy turning complex problems into elegant technical solutions that deliver real value.
+                    </p>
+                    <div class="social-links header-socials">
+                        <a href="https://github.com/Buvanesh135" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://linkedin.com/in/buvanesh07" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://leetcode.com/buvanesh07" target="_blank" title="LeetCode"><i class="fas fa-code"></i></a>
+                        <a href="https://www.geeksforgeeks.org/user/buvanesh1902/" target="_blank" title="GeeksforGeeks"><i class="fas fa-brain"></i></a>
+                    </div>
+                    <a href="Buvanesh.pdf" download class="resume-button">
+                        <i class="fas fa-download"></i> Download Resume
+                    </a>
+                </div>
+                <div class="header-image-container fade-in">
+                    <img src="Technology.png" alt="Buvanesh Palanisamy" class="header-image">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+
+        <!-- Experience Section (LAYOUT UPDATED) -->
+        <section id="experience">
+            <h2 class="section-title">Professional Experience</h2>
+            <div class="cards-grid">
+                <div class="info-card fade-in">
+                    <h3>Software Developer</h3>
+                    <p class="date">TECHUPWARE | Jul 2024 - Present</p>
+                    <p>Developed scalable backend systems for 5,000+ users using Firebase, Firestore, and Cloud Functions. Enhanced system scalability and security by 60-70% through robust architecture and Firebase Auth integration.</p>
+                </div>
+                <div class="info-card fade-in">
+                    <h3>Software Developer Intern</h3>
+                    <p class="date">DIVUM | Jul 2023 - Jun 2024</p>
+                    <p>Contributed to the development of scalable RESTful APIs using Spring Boot and Flask. Implemented JWT-based authentication, successfully reducing unauthorized access by 45% and boosting system reliability.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section (LAYOUT UPDATED) -->
+        <section id="projects">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="cards-grid">
+                <div class="project-card fade-in">
+                    <div class="project-card-content">
+                        <h3>Spadesguru - Multiplayer Game</h3>
+                        <p>Architected the core game logic and server-side processes in Python. Integrated Firebase for real-time sync and authentication for 5,000+ users and enhanced performance for a smooth multiplayer experience.</p>
+                        <div class="tech-stack"><span>Python</span><span>Firebase</span><span>Cloud Functions</span></div>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://play.google.com/store/apps/details?id=com.tuw.spades" target="_blank" class="live-link"><i class="fas fa-play-circle"></i> Live Link</a>
+                    </div>
+                </div>
+                <div class="project-card fade-in">
+                    <div class="project-card-content">
+                        <h3>Burger King Platform Backend</h3>
+                        <p>Led the backend development for the platform, focusing on secure RESTful APIs. Implemented multi-factor authentication, reducing security threats by 60% and minimizing data breaches for secure transactions.</p>
+                        <div class="tech-stack"><span>Python</span><span>Flask</span><span>SQL</span></div>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://www.burgerking.in/" target="_blank" class="live-link"><i class="fas fa-play-circle"></i> Live Link</a>
+                    </div>
+                </div>
+                <div class="project-card fade-in">
+                    <div class="project-card-content">
+                        <h3>Meeting Room Booking System</h3>
+                        <p>Designed a secure, multi-user booking system using Spring Boot during a hackathon. This system featured robust JWT-based authentication and role-based access for admins and users.</p>
+                        <div class="tech-stack"><span>Java</span><span>Spring Boot</span><span>MySQL</span></div>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/Buvanesh135/InternalMeetingRoomBooking" target="_blank" class="code-link"><i class="fab fa-github"></i> Code Link</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-card fade-in"><i class="fas fa-code"></i><h4>Languages</h4><p>Java, Python, C</p></div>
+                <div class="skill-card fade-in"><i class="fas fa-server"></i><h4>Backend</h4><p>Spring Boot, Flask</p></div>
+                <div class="skill-card fade-in"><i class="fas fa-cloud"></i><h4>Cloud & DB</h4><p>Firebase, Firestore, MySQL</p></div>
+                <div class="skill-card fade-in"><i class="fab fa-html5"></i><h4>HTML</h4><p>Semantic HTML, Forms</p></div>
+                <div class="skill-card fade-in"><i class="fab fa-css3-alt"></i><h4>CSS</h4><p>Flexbox, Grid, Animations</p></div>
+                <div class="skill-card fade-in"><i class="fab fa-js"></i><h4>JavaScript</h4><p>ES6+, DOM Manipulation</p></div>
+                <div class="skill-card fade-in"><i class="fas fa-atom"></i><h4>TypeScript</h4><p>Static Typing, Interfaces</p></div>
+                <div class="skill-card fade-in"><i class="fas fa-tools"></i><h4>Tools</h4><p>Git, Postman, Jira</p></div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education">
+            <h2 class="section-title">Education</h2>
+            <div class="cards-grid">
+                <div class="info-card fade-in">
+                    <h3>KCE Engineering College</h3>
+                    <p>BE in Computer Science</p>
+                    <p><strong>CGPA:</strong> 8.59 / 10.0</p>
+                    <p>2020 - 2024</p>
+                </div>
+                <div class="info-card fade-in">
+                    <h3>Universal Matric HR SEC School</h3>
+                    <p>HSC (Higher Secondary)</p>
+                    <p><strong>Percentage:</strong> 84.88%</p>
+                    <p>Graduated 2020</p>
+                </div>
+                 <div class="info-card fade-in">
+                    <h3>Universal Matric HR SEC School</h3>
+                    <p>SSLC (Secondary)</p>
+                    <p><strong>Percentage:</strong> 88.88%</p>
+                    <p>Graduated 2018</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Awards Section -->
+        <section id="awards">
+            <h2 class="section-title">Awards & Certifications</h2>
+            <div class="cards-grid">
+                <div class="info-card fade-in">
+                    <h3>Divum Hackathon</h3>
+                    <p>Won cash prize (Top 2/10)</p>
+                    <p class="year">2024</p>
+                </div>
+                <div class="info-card fade-in">
+                    <h3>NPTEL Java Programming</h3>
+                    <p>Completion Certificate (65%)</p>
+                    <p class="year">2022</p>
+                </div>
+                <div class="info-card fade-in">
+                    <h3>SkillRack Data Structures</h3>
+                    <p>Completion Certificate</p>
+                    <p class="year">2022</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="social-links">
+            <a href="https://github.com/Buvanesh135" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://linkedin.com/in/buvanesh07" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="https://leetcode.com/buvanesh07" target="_blank" title="LeetCode"><i class="fas fa-code"></i></a>
+            <a href="https://www.geeksforgeeks.org/user/buvanesh1902/" target="_blank" title="GeeksforGeeks"><i class="fas fa-brain"></i></a>
+        </div>
+        <p>© 2025 Buvanesh Palanisamy. All Rights Reserved.</p>
+    </footer>
+
+    <!-- JavaScript for Animations -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const observerOptions = {
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const elementsToAnimate = document.querySelectorAll('.fade-in, .section-title');
+            elementsToAnimate.forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
